@@ -42,3 +42,13 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 - git commit -m ""
 - git remote add origin https://github.com/GeoffreyPerez13/LivreDeRecettes.git
 - git push -u origin master / git push -u origin main
+
+# Formulaire de contact :
+-	mettre une file synchrone dans messenger.yaml
+-	création d’un faux serveur mail avec mailpit
+-	mailpit-windows-amd64.zip à télécharger pour windows
+-	décompresser le dossier et mettre le fichier mailpit.exe dans le dossier bin
+-	executer ce fichier avec .\mailpit.exe
+-	dans le fichier .env, décommenter et mettre MAILER_DSN=smtp://localhost:1025
+-	php bin/console make: form ContactType à placer dans un dossier créé dans le dossier src
+
