@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Demo;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RecipeController extends AbstractController
 {
@@ -51,11 +54,11 @@ class RecipeController extends AbstractController
 
     // Route pour mettre à jour une recette
     #[Route('/recettes/{id}/edit', name: 'recipe.edit', methods: ['GET', 'POST'])]
-    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em)
+    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em, FormFactoryInterface $formFactory)
     {
-
+        
         // Création du formulaire d'édition de recette
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $formFactory->create(RecipeType::class, $recipe);
 
         // Gérer la requête du formulaire
         $form->handleRequest($request);
