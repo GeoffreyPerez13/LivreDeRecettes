@@ -54,3 +54,8 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 -	dans le fichier .env, décommenter et mettre MAILER_DSN=smtp://localhost:1025
 -	php bin/console make: form ContactType à placer dans un dossier créé dans le dossier src
 
+# ORM :
+-	php bin/console make:entity NomDeL’Entité
+-	fieldtype = relation -> relier à la bonne entité
+
+
