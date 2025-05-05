@@ -19,74 +19,53 @@ use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
+    // Injection du service FormListenerFactory, qui permet d'ajouter des comportements personnalisés
+    public function __construct(private FormListenerFactory $listenerFactory) {}
+
+    // Méthode principale pour construire les champs du formulaire
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // Champ "title" (obligatoire)
             ->add('title', TextType::class, [
-                'label' => 'Titre :',
-                'empty_data' => ''
+                'label' => 'Titre :', // Libellé affiché dans le formulaire
+                'empty_data' => '' // Valeur utilisée si l'utilisateur laisse ce champ vide
             ])
+
+            // Champ "slug" (optionnel, généré automatiquement si vide)
             ->add('slug', TextType::class, [
-                'required' => false,
+                'required' => false, // Le champ n'est pas obligatoire
                 'label' => 'Slug :'
             ])
+
+            // Champ "content" (textarea pour texte long)
             ->add('content', TextareaType::class, [
-                'label' => 'Contenu :',
-                'empty_data' => ''
+                'label' => 'Contenu :', // Libellé du champ
+                'empty_data' => '' // Définit une valeur vide si aucun contenu
             ])
+
+            // Champ "duration" (temps de préparation)
             ->add('duration', TextType::class, [
                 'label' => 'Temps de préparation :'
             ])
+
+            // Bouton de soumission
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer'
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'autoSlug'])
-            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'attachTimeStamps']);
+
+            // Ajoute un écouteur pour générer automatiquement le slug à partir du titre si celui-ci est vide
+            ->addEventListener(FormEvents::PRE_SUBMIT, $this->listenerFactory->autoSlug('title'))
+
+            // Ajoute un écouteur pour définir ou mettre à jour les dates createdAt / updatedAt
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->listenerFactory->timestamps());
     }
 
-    // Créer un slug automatique si l'utilisateur ne le complète pas dans le formulaire
-    public function autoSlug(PreSubmitEvent $event): void
-    {
-        // Récupère les données du formulaire
-        $data =  $event->getData();
-
-        // Vérifie si le champ "slug" est vide dans les données soumises
-        if (empty($data['slug'])) {
-            // Instancie le composant Slugger pour générer un slug ASCII à partir du titre
-            $slugger = new AsciiSlugger();
-
-            // Génère un slug en utilisant le titre, puis le convertit en minuscules
-            $data['slug'] = strtolower($slugger->slug($data['title']));
-
-            // Remplace les données originales du formulaire avec les nouvelles données 
-            $event->setData($data);
-        }
-    }
-
-    // Ajouter des timestamps à la soumission du formulaire
-    public function attachTimeStamps(PostSubmitEvent $event): void
-    {
-        $data =  $event->getData();
-
-        // Si les données ne sont pas une instance de la classe Recipe, on arrête l'exécution
-        if (!($data instanceof Recipe)) {
-            return;  // On sort de la fonction si l'objet n'est pas une recette
-        }
-
-        // Si l'objet est une recette, on met à jour le champ 'updatedAt' avec la date et heure actuelles
-        $data->setUpdatedAt(new \DateTimeImmutable());
-
-        // Si l'ID de la recette n'existe pas (c'est-à-dire si c'est une nouvelle recette),
-        // on initialise également le champ 'createdAt' avec la date et heure actuelles
-        if (!$data->getId()) {
-            $data->setCreatedAt(new \DateTimeImmutable());
-        }
-    }
-
+    // Définit les options par défaut pour ce formulaire
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Recipe::class
+            'data_class' => Recipe::class   // Le formulaire est lié à l'entité Recipe
         ]);
     }
 }
