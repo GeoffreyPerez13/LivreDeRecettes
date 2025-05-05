@@ -40,8 +40,10 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 - git init
 - git add .
 - git commit -m ""
-- git remote add origin https://github.com/GeoffreyPerez13/LivreDeRecettes.git
-- git push -u origin master / git push -u origin main
+- git branch -M main
+- git push -u origin main
+- (git remote add origin https://github.com/GeoffreyPerez13/LivreDeRecettes.git)
+- (git push -u origin master / git push -u origin main)
 
 # Formulaire de contact :
 -	mettre une file synchrone dans messenger.yaml
@@ -51,4 +53,9 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 -	executer ce fichier avec .\mailpit.exe
 -	dans le fichier .env, décommenter et mettre MAILER_DSN=smtp://localhost:1025
 -	php bin/console make: form ContactType à placer dans un dossier créé dans le dossier src
+
+# ORM :
+-	php bin/console make:entity NomDeL’Entité
+-	fieldtype = relation -> relier à la bonne entité
+
 
