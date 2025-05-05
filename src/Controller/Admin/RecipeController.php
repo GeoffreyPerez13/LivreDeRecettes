@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Demo;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,10 @@ class RecipeController extends AbstractController
 {
     // Route pour afficher toutes les recettes
     #[Route('/', name: 'index')]
-    public function index(RecipeRepository $repository): Response
+    public function index(RecipeRepository $repository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface): Response
     {
         // On récupère toutes les recettes depuis le repository
-        // $recipes = $repository->findWithDurationLowerThan(30);
+        $recipes = $repository->findWithDurationLowerThan(30);
         $recipes = $repository->findAll();
 
         // On renvoie la réponse en affichant la vue
