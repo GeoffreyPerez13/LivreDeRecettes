@@ -5,11 +5,7 @@
 {% block body %}
 <h1>{{ recipe.title }}</h1>
 
-{% for error in app.flashes('form_errors') %}
-    <div class="alert alert-danger">
-        {{ error.message }}
-    </div>
-{% endfor %}
+<img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="Photo de {{ recipe.title }}">
 
 {{ form(form) }}
 
