@@ -58,4 +58,14 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 -	php bin/console make:entity NomDeL’Entité
 -	fieldtype = relation -> relier à la bonne entité
 
+# Créer un utilisateur :
+-	php bin/console make:user
+
+# Créer système d’authentification :
+-	php bin/console make:auth ou make:security (plus récent)
+
+# Créer formulaire d’inscription :
+-	php bin/console make:registration-form
+
+
 
