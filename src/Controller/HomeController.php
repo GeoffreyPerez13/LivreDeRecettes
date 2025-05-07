@@ -17,8 +17,6 @@ class HomeController extends AbstractController
     #[Route("/", name: "home")]
     function index(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, Security $security): Response
     {   
-        dd($security->getToken());
-
         // Redirection vers la vue
         return $this->render('home/index.html.twig');
     }

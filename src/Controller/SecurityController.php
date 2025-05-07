@@ -9,24 +9,28 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    // Route pour afficher le formulaire de connexion
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
+        // Récupération de l'erreur d'authentification (si elle existe)
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+
+        // Récupération du dernier nom d'utilisateur saisi (si une tentative de connexion précédente a échoué)
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        // Rendu de la vue de connexion avec les informations d'erreur et le dernier nom d'utilisateur
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,  // On passe le dernier nom d'utilisateur pour le pré-remplissage du champ
+            'error' => $error,  // On passe l'erreur d'authentification s'il y en a une
+        ]);
     }
 
+    // Route pour la déconnexion (cette méthode peut rester vide, la déconnexion étant gérée automatiquement par Symfony)
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
+        // Cette méthode ne fait rien car elle est interceptée par la configuration de Symfony et le logout est géré automatiquement
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

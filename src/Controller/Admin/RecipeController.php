@@ -24,13 +24,11 @@ class RecipeController extends AbstractController
 {
     // Route pour afficher toutes les recettes
     #[Route('/', name: 'index')]
-    public function index(RecipeRepository $repository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface): Response
+    public function index(RecipeRepository $repository, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER'); // Avoir un rôle pour accéder à la page
-
         // On récupère toutes les recettes depuis le repository
-        $recipes = $repository->findWithDurationLowerThan(30);
-        $recipes = $repository->findAll();
+        $page = $request->query->getInt('page', 1);
+        $recipes = $repository->paginateRecipes($page);
 
         // On renvoie la réponse en affichant la vue
         return $this->render('admin/recipe/index.html.twig', [
