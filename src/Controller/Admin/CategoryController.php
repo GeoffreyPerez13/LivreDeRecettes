@@ -19,12 +19,9 @@ class CategoryController extends AbstractController
     // Affiche la liste de toutes les catégories
     #[Route(name: 'index')]
     public function index(CategoryRepository $repository) {
-        // Récupère toutes les catégories depuis la base de données
-        $categories = $repository->findAll();
-
         // Affiche la vue avec la liste des catégories
         return $this->render('admin/category/index.html.twig', [
-            'categories' => $categories
+            'categories' => $repository->findAllWithCount()
         ]);
     }
 

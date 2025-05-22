@@ -1,4 +1,10 @@
 import './bootstrap.js';
+import canvaConfetti from 'canvas-confetti';
+
+document.body.addEventListener('click', ()=> {
+    canvaConfetti()
+})
+
 /*
  * Welcome to your app's main JavaScript file!
  *
