@@ -67,5 +67,11 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 # Créer formulaire d’inscription :
 -	php bin/console make:registration-form
 
+# Intégration CSS et JS :
+-	php bin/console asset-map:compile
+-	Supprimer dossier assets créé
+-	Symfony : serve
+-	php bin/console importmap:require canvas-confetti (exemple)
+
 
 
