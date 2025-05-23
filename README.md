@@ -40,8 +40,9 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 - git init
 - git add .
 - git commit -m ""
-- git branch -M main
-- git push -u origin main
+- git push
+- (git branch -M main)
+- (git push -u origin main)
 - (git remote add origin https://github.com/GeoffreyPerez13/LivreDeRecettes.git)
 - (git push -u origin master / git push -u origin main)
 
