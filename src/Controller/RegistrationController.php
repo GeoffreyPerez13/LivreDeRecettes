@@ -68,7 +68,7 @@ class RegistrationController extends AbstractController
         }
 
         // Si le formulaire n'est pas soumis ou n'est pas valide, on renvoie le formulaire d'inscription
-        return $this->render('security/login.html.twig', [
+        return $this->render('registration/register.html.twig', [
             'registrationForm' => $form, // On passe le formulaire pour l'affichage
         ]);
     }
