@@ -37,7 +37,7 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 -	php bin/console make:validator
 
 # Pusher sur le repository :
-- (git pull origin main)
+- git pull origin main
 - git init
 - git add .
 - git commit -m ""
