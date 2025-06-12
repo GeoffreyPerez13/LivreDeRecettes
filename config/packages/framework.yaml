@@ -10,6 +10,9 @@ framework:
     #fragments: true
     http_method_override: true #modifier méthode utilisée grâce à un champ caché
 
+    serializer:
+        enabled: true
+
 when@test:
     framework:
         test: true

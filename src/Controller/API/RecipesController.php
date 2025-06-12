@@ -19,10 +19,10 @@ class RecipesController extends AbstractController
     #[Route('/api/recipes', methods: ["GET"])]
     public function index(
         RecipeRepository $repository,
-        #[MapQueryString]
-        ?PaginationDTO $paginationDTO = null
+        Request $request
     ) {
-        $recipes = $repository->paginateRecipes($paginationDTO->page);
+        $page = $request->query->getInt('page', 1);
+        $recipes = $repository->paginateRecipes($page);
 
         return $this->json($recipes, 200, [], [
             'groups' => ['recipes.index']
