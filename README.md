@@ -71,5 +71,13 @@ o	php –ini pour vérifier quel fichier php.ini est chargé et est à vérifier
 -	Symfony : serve
 -	php bin/console importmap:require canvas-confetti (exemple)
 
+# Fixtures :
+-	composer require --dev orm-fixtures
+-	php bin/console doctrine:fixture:load
+-	php bin/console make:fixtures
+-	composer --dev require fakerphp/faker
+-	composer require --dev jzonta/faker-restaurant
+-	php bin/console doctrine:fixtures:load -n
+
 
 
